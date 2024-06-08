@@ -377,13 +377,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 644f286f8709a854a8099db3e4e52867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealth: 100
   defaultMovementSpeed: 2
   aimSpeed: 1
   sprintSpeed: 4
   sprintMeter: {fileID: 206170775}
   sprintDecay: 3
   sprintRegenDelay: 1.5
-  timeBetweenShots: 1
+  timeBetweenShots: 0
+  bulletsPerMag: 10
+  totalBullets: 10
+  canShoot: 1
+  damage: 10
   mousePos: {x: 0, y: 0}
   rotationZ: 0
   sprites:
@@ -55447,7 +55452,7 @@ GameObject:
   - component: {fileID: 2143158044}
   m_Layer: 0
   m_Name: Vampire
-  m_TagString: Enemy
+  m_TagString: Vampire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55560,6 +55565,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultMovementSpeed: 1.5
   player: {fileID: 188533450}
+  health: 100
   slider: {fileID: 1841512223}
 --- !u!50 &2143158044
 Rigidbody2D:

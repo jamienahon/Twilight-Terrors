@@ -145,14 +145,17 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     {
-        if(Time.time >= nextShot && canShoot)
+        if (Time.time >= nextShot && canShoot)
         {
             nextShot = Time.time + timeBetweenShots;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, mousePos - (Vector2)transform.position.normalized);
-            Debug.DrawLine(transform.position, mousePos - (Vector2)transform.position.normalized * 100, Color.green);
-            if(hit.collider.tag == "Vampire")
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, (mousePos - (Vector2)transform.position).normalized, 100);
+            foreach (RaycastHit2D hit in hits)
             {
-                hit.collider.gameObject.GetComponent<vampireController>().health -= damage;
+                if (hit.collider.gameObject.tag == "Vampire")
+                {
+                    hit.collider.gameObject.GetComponent<vampireController>().health -= damage;
+                    break;
+                }
             }
         }
     }
