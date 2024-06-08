@@ -4,12 +4,16 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class vampireController : MonoBehaviour
 {
     public float defaultMovementSpeed;
     public GameObject player;
     bool lockedOn = false;
+    int health = 100;
+
+    public Slider slider;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +30,7 @@ public class vampireController : MonoBehaviour
         if (Mathf.Abs(transform.position.x - player.transform.position.x) < 10.1 && Mathf.Abs(transform.position.y - player.transform.position.y) < 5.7){
             lockedOn = true;
         }
+        slider.value = health / 10;
         
     }
 }
