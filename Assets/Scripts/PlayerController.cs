@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,6 +25,9 @@ public class PlayerController : MonoBehaviour
 
     public float timeBetweenShots;
     float nextShot;
+    public float reloadTime;
+    float finishedReloading;
+    public int bulletsInMag;
     public int bulletsPerMag;
     public int totalBullets;
     public bool canShoot = true;
@@ -37,6 +41,11 @@ public class PlayerController : MonoBehaviour
     public Sprite[] sprites;
     SpriteRenderer sr;
 
+    public ParticleSystem gunShotParticles;
+
+    public TextMeshProUGUI bulletsInMagText;
+    public TextMeshProUGUI totalBulletsText;
+
     void Start()
     {
         aimLine = GetComponent<LineRenderer>();
@@ -44,6 +53,7 @@ public class PlayerController : MonoBehaviour
         movementSpeed = defaultMovementSpeed;
         sprintValue = sprintMeter.maxValue;
         sr = GetComponent<SpriteRenderer>();
+        bulletsInMag = bulletsPerMag;
     }
 
     void Update()
@@ -54,8 +64,11 @@ public class PlayerController : MonoBehaviour
         ChangePlayerMovementState();
         HandleSprintMeter();
         HandleSpriteChanges();
+        CheckIfCanShoot();
 
         sprintMeter.value = sprintValue;
+        bulletsInMagText.text = bulletsInMag.ToString();
+        totalBulletsText.text = totalBullets.ToString();
     }
 
     void ChangePlayerMovementState()
@@ -135,6 +148,12 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && isAiming)
             Shoot();
+
+        if(Input.GetKeyDown(KeyCode.R) && canShoot && bulletsInMag < bulletsPerMag)
+        {
+            canShoot = false;
+            finishedReloading = Time.time + reloadTime;
+        }
     }
 
     void RenderAimLine()
@@ -145,9 +164,12 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     {
-        if (Time.time >= nextShot && canShoot)
+        if (Time.time >= nextShot && canShoot && bulletsInMag > 0)
         {
+            Instantiate(gunShotParticles, DecideGunShotPosition(), DecideGunshotRotation());
             nextShot = Time.time + timeBetweenShots;
+            bulletsInMag--;
+
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, (mousePos - (Vector2)transform.position).normalized, 100);
             foreach (RaycastHit2D hit in hits)
             {
@@ -158,6 +180,82 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+
+    void CheckIfCanShoot()
+    {
+        if (bulletsInMag == 0 && canShoot)
+        {
+            canShoot = false;
+            finishedReloading = Time.time + reloadTime;
+        }
+
+        if (Time.time >= finishedReloading && !canShoot)
+        {
+            canShoot = true;
+            if (bulletsInMag == 0)
+            {
+                if (totalBullets >= bulletsPerMag)
+                {
+                    bulletsInMag = bulletsPerMag;
+                    totalBullets -= bulletsPerMag;
+                }
+                else
+                {
+                    bulletsInMag = totalBullets;
+                    totalBullets = 0;
+                }
+            }
+            else
+            {
+                if (totalBullets >= bulletsPerMag - bulletsInMag)
+                {
+                    totalBullets -= bulletsPerMag - bulletsInMag;
+                    bulletsInMag = bulletsPerMag;
+                }
+                else
+                {
+                    bulletsInMag += totalBullets;
+                }
+            }
+        }
+    }
+
+    Vector3 DecideGunShotPosition()
+    {
+        if (rotationZ < 135 && rotationZ > 45)
+        {
+            return new Vector3(transform.position.x, transform.position.y + 0.5f, 0.5f);
+        }
+        else if (rotationZ > -135 && rotationZ < -45)
+        {
+            return new Vector3(transform.position.x, transform.position.y - 0.5f, -1);
+        }
+        else if (rotationZ < 45 && rotationZ > -45)
+        {
+            return new Vector3(transform.position.x + 1, transform.position.y + 0.1f, 0.5f);
+        }
+        else
+            return new Vector3(transform.position.x - 1, transform.position.y + 0.1f, 0.5f);
+
+    }
+
+    Quaternion DecideGunshotRotation()
+    {
+        if (rotationZ < 135 && rotationZ > 45)
+        {
+            return Quaternion.Euler(0,0,90);
+        }
+        else if (rotationZ > -135 && rotationZ < -45)
+        {
+            return Quaternion.Euler(0, 0, -90);
+        }
+        else if (rotationZ < 45 && rotationZ > -45)
+        {
+            return gunShotParticles.transform.rotation;
+        }
+        else
+            return Quaternion.Euler(0, 0, 180);
     }
 
     void HandleSpriteChanges()
