@@ -22,6 +22,7 @@ public class vampireController : MonoBehaviour
     void Start()
     {
         movementSpeed = defaultMovementSpeed;
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -43,5 +44,4 @@ public class vampireController : MonoBehaviour
         attackTimer += Time.deltaTime;
         
     }
-
 }
