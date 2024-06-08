@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class vampireController : MonoBehaviour
 {
     public float defaultMovementSpeed;
+    float movementSpeed;
     public GameObject player;
     bool lockedOn = false;
     int health = 100;
@@ -17,13 +18,13 @@ public class vampireController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        movementSpeed = defaultMovementSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (lockedOn){
+        if (lockedOn && (Mathf.Abs(transform.position.x - player.transform.position.x) > 1 || Mathf.Abs(transform.position.y - player.transform.position.y) > 2)){
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, defaultMovementSpeed * Time.deltaTime);
         }
 
@@ -33,4 +34,5 @@ public class vampireController : MonoBehaviour
         slider.value = health / 10;
         
     }
+
 }
