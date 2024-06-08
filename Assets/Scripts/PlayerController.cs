@@ -20,9 +20,6 @@ public class PlayerController : MonoBehaviour
     bool canSprint = true;
     bool isAiming = false;
 
-    public float timeBetweenShots;
-    float nextShot;
-
     LineRenderer aimLine;
     public Vector2 mousePos;
 
@@ -43,11 +40,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        FaceCursor();
         RenderAimLine();
         HandlePlayerInputs();
         ChangePlayerMovementState();
         HandleSprintMeter();
-        HandleSpriteChanges();
 
         sprintMeter.value = sprintValue;
     }
@@ -134,7 +131,7 @@ public class PlayerController : MonoBehaviour
         aimLine.SetPosition(1, (mousePos - (Vector2)transform.position).normalized * 1000);
     }
 
-    void HandleSpriteChanges()
+    void FaceCursor()
     {
         Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -142,40 +139,17 @@ public class PlayerController : MonoBehaviour
         difference.Normalize();
 
         rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-
-        if (isAiming)
-        {
-            if (rotationZ < 135 && rotationZ > 45)
-                sr.sprite = sprites[3];
-            else if (rotationZ > -135 && rotationZ < -45)
-                sr.sprite = sprites[5];
-            else if (rotationZ < 45 && rotationZ > -45)
-            {
-                sr.sprite = sprites[4];
-                sr.flipX = false;
-            }
-            else
-            {
-                sr.sprite = sprites[4];
-                sr.flipX = true;
-            }
-        }
+        if (rotationZ <= 90 && rotationZ >= -90)
+            GetComponent<SpriteRenderer>().flipX = true;
         else
-        {
-            if (rotationZ < 135 && rotationZ > 45)
-                sr.sprite = sprites[0];
-            else if (rotationZ > -135 && rotationZ < -45)
-                sr.sprite = sprites[2];
-            else if (rotationZ < 45 && rotationZ > -45)
-            {
-                sr.sprite = sprites[1];
-                sr.flipX = true;
-            }
-            else
-            {
-                sr.sprite = sprites[1];
-                sr.flipX = false;
-            }
-        }
+            GetComponent<SpriteRenderer>().flipX = false;
+    }
+
+    void HandleSpriteChanges()
+    {
+        if (rotationZ < 90 && rotationZ > 0)
+            sr.sprite = sprites[0];
+        if (rotationZ < 90 && rotationZ > 0)
+            sr.sprite = sprites[0];
     }
 }
