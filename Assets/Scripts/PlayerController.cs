@@ -134,6 +134,11 @@ public class PlayerController : MonoBehaviour
         aimLine.SetPosition(1, (mousePos - (Vector2)transform.position).normalized * 1000);
     }
 
+    void Shoot()
+    {
+
+    }
+
     void HandleSpriteChanges()
     {
         Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
