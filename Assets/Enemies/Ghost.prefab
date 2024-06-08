@@ -527,7 +527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf8f2ec958bf6b24a9f45bf4d1693eac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMovementSpeed: 0
+  defaultMovementSpeed: 1.5
   player: {fileID: 0}
   health: 100
   sr: {fileID: 3293848020957606187}
