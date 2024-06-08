@@ -15,7 +15,8 @@ public class flashLightControlles : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.rotation = quaternion.Euler(0, 0, player.rotationZ);
+        gameObject.transform.eulerAngles = new Vector3(gameObject.transform.eulerAngles.x, gameObject.transform.eulerAngles.y, player.GetComponent<PlayerController>().rotationZ - 90);
+        
         
     }
 }
