@@ -23,12 +23,18 @@ public class PlayerController : MonoBehaviour
     LineRenderer aimLine;
     public Vector2 mousePos;
 
+    public float rotationZ;
+
+    public Sprite[] sprites;
+    SpriteRenderer sr;
+
     void Start()
     {
         aimLine = GetComponent<LineRenderer>();
         aimLine.enabled = false;
         movementSpeed = defaultMovementSpeed;
         sprintValue = sprintMeter.maxValue;
+        sr = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -132,10 +138,18 @@ public class PlayerController : MonoBehaviour
         Vector3 difference = worldPoint - transform.position;
         difference.Normalize();
 
-        float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         if (rotationZ <= 90 && rotationZ >= -90)
             GetComponent<SpriteRenderer>().flipX = true;
         else
             GetComponent<SpriteRenderer>().flipX = false;
+    }
+
+    void HandleSpriteChanges()
+    {
+        if (rotationZ < 90 && rotationZ > 0)
+            sr.sprite = sprites[0];
+        if (rotationZ < 90 && rotationZ > 0)
+            sr.sprite = sprites[0];
     }
 }
