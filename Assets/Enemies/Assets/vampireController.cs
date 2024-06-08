@@ -12,7 +12,7 @@ public class vampireController : MonoBehaviour
     float movementSpeed;
     public GameObject player;
     bool lockedOn = false;
-    int health = 100;
+    public int health = 100;
 
     public Slider slider;
     // Start is called before the first frame update

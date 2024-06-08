@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public float playerHealth = 100;
+
     public float defaultMovementSpeed;
     float movementSpeed;
     public float aimSpeed;
@@ -22,6 +24,10 @@ public class PlayerController : MonoBehaviour
 
     public float timeBetweenShots;
     float nextShot;
+    public int bulletsPerMag;
+    public int totalBullets;
+    public bool canShoot = true;
+    public int damage;
 
     LineRenderer aimLine;
     public Vector2 mousePos;
@@ -126,6 +132,9 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift))
                 isSprinting = true;
         }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) && isAiming)
+            Shoot();
     }
 
     void RenderAimLine()
@@ -136,7 +145,16 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     {
-
+        if(Time.time >= nextShot && canShoot)
+        {
+            nextShot = Time.time + timeBetweenShots;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, mousePos - (Vector2)transform.position.normalized);
+            Debug.DrawLine(transform.position, mousePos - (Vector2)transform.position.normalized * 100, Color.green);
+            if(hit.collider.tag == "Vampire")
+            {
+                hit.collider.gameObject.GetComponent<vampireController>().health -= damage;
+            }
+        }
     }
 
     void HandleSpriteChanges()
