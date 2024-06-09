@@ -23,7 +23,7 @@ public class vampireController : MonoBehaviour
     void Start()
     {
         movementSpeed = defaultMovementSpeed;
-        player = GameObject.Find("Player");
+        player = GameObject.Find("PlayerChild");
     }
 
     // Update is called once per frame

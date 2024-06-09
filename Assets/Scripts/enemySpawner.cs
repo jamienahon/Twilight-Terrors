@@ -17,7 +17,7 @@ public class enemySpawner : MonoBehaviour
     public float enemyCountIncreaseDelay;
     float enemyCountIncreaseTimer;
 
-    int maxEnemyCount;
+    int maxEnemyCount = 10;
 
 
     public float spawnDelay;

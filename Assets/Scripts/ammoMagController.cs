@@ -20,7 +20,7 @@ public class ammoMagController : MonoBehaviour
         void OnTriggerEnter2D(Collider2D col)
     {
         if(col.CompareTag("Player")){
-            player.GetComponentInChildren<PlayerController>().totalBullets += 10;
+            player.GetComponentInChildren<PlayerController>().totalBullets += 15;
             Destroy(gameObject);
         }
     }

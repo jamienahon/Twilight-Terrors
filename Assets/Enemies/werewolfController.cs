@@ -21,7 +21,7 @@ public class werewolfController : MonoBehaviour
     void Start()
     {
         movementSpeed = defaultMovementSpeed;
-        player = GameObject.Find("Player");
+        player = GameObject.Find("PlayerChild");
     }
     public GameObject bloodParticles;
     // Update is called once per frame
