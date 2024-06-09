@@ -49,6 +49,8 @@ public class PlayerController : MonoBehaviour
 
     public ParticleSystem bloodEffect;
 
+    Animator anim;
+
     void Start()
     {
         aimLine = GetComponent<LineRenderer>();
@@ -57,10 +59,18 @@ public class PlayerController : MonoBehaviour
         sprintValue = sprintMeter.maxValue;
         sr = GetComponent<SpriteRenderer>();
         bulletsInMag = bulletsPerMag;
+        anim = GetComponent<Animator>();
+        anim.enabled = false;
     }
 
     void Update()
     {
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("side recoil anim") 
+            && !anim.GetCurrentAnimatorStateInfo(0).IsName("front recoil anim"))
+        {
+            anim.enabled = false;
+        }
+
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RenderAimLine();
         HandlePlayerInputs();
@@ -72,6 +82,7 @@ public class PlayerController : MonoBehaviour
         sprintMeter.value = sprintValue;
         bulletsInMagText.text = bulletsInMag.ToString();
         totalBulletsText.text = totalBullets.ToString();
+
     }
 
     void ChangePlayerMovementState()
@@ -152,7 +163,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0) && isAiming)
             Shoot();
 
-        if(Input.GetKeyDown(KeyCode.R) && canShoot && bulletsInMag < bulletsPerMag)
+        if (Input.GetKeyDown(KeyCode.R) && canShoot && bulletsInMag < bulletsPerMag)
         {
             canShoot = false;
             finishedReloading = Time.time + reloadTime;
@@ -169,6 +180,14 @@ public class PlayerController : MonoBehaviour
     {
         if (Time.time >= nextShot && canShoot && bulletsInMag > 0)
         {
+            anim.enabled = true;
+            if (rotationZ < 135 && rotationZ > 45)
+                anim.enabled = false;
+            else if (rotationZ > -135 && rotationZ < -45)
+                anim.Play("front recoil anim");
+            else
+                anim.Play("side recoil anim");
+
             Instantiate(gunShotParticles, DecideGunShotPosition(), DecideGunshotRotation());
             nextShot = Time.time + timeBetweenShots;
             bulletsInMag--;
@@ -266,7 +285,7 @@ public class PlayerController : MonoBehaviour
     {
         if (rotationZ < 135 && rotationZ > 45)
         {
-            return Quaternion.Euler(0,0,90);
+            return Quaternion.Euler(0, 0, 90);
         }
         else if (rotationZ > -135 && rotationZ < -45)
         {
@@ -315,12 +334,12 @@ public class PlayerController : MonoBehaviour
             else if (rotationZ < 45 && rotationZ > -45)
             {
                 sr.sprite = sprites[1];
-                sr.flipX = true;
+                sr.flipX = false;
             }
             else
             {
                 sr.sprite = sprites[1];
-                sr.flipX = false;
+                sr.flipX = true;
             }
         }
     }
