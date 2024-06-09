@@ -28,7 +28,7 @@ public class FlashlightBatteryController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         if(col.CompareTag("Player")){
-            lightMeter.GetComponent<lighMeterController>().batteryPercentage += batteryIncreaseAmount;
+            lightMeter.GetComponentInChildren<lighMeterController>().batteryPercentage += batteryIncreaseAmount;
             Destroy(gameObject);
         }
     }
