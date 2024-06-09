@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1415420184464056697}
   - component: {fileID: 5411482775881303923}
   - component: {fileID: 7148907092863209001}
+  - component: {fileID: -822686473148436689}
   m_Layer: 0
   m_Name: vaccum tube
   m_TagString: Untagged
@@ -133,3 +134,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-822686473148436689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8909868349334493703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b6c0431241028048b4032a4d92b59c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
