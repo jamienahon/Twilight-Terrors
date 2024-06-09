@@ -50,6 +50,9 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem bloodEffect;
 
     Animator anim;
+    Animator parentAnim;
+
+    float animSpeed;
 
     void Start()
     {
@@ -60,15 +63,17 @@ public class PlayerController : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         bulletsInMag = bulletsPerMag;
         anim = GetComponent<Animator>();
+        parentAnim = GetComponentInParent<Animator>();
+        animSpeed = parentAnim.speed;
     }
 
     void Update()
     {
-        //if (!anim.GetCurrentAnimatorStateInfo(0).IsName("side recoil anim") 
-        //    && !anim.GetCurrentAnimatorStateInfo(0).IsName("front recoil anim"))
-        //{
-        //    anim.enabled = false;
-        //}
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("side recoil anim")
+            && !anim.GetCurrentAnimatorStateInfo(0).IsName("front recoil anim"))
+        {
+            anim.enabled = false;
+        }
 
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RenderAimLine();
@@ -107,9 +112,11 @@ public class PlayerController : MonoBehaviour
         if (isSprinting && canSprint)
         {
             sprintValue -= sprintDecay * Time.deltaTime;
+            parentAnim.speed = animSpeed * 2;
             if (sprintValue <= 0)
             {
                 canSprint = false;
+                parentAnim.speed = animSpeed;
             }
         }
         if (Time.time >= startSprintRegen && sprintValue != sprintMeter.maxValue && !isSprinting)
@@ -136,7 +143,7 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKey(KeyCode.D))
             moveDirection.x = 1;
 
-        transform.Translate(moveDirection.normalized * movementSpeed * Time.deltaTime);
+        transform.parent.Translate(moveDirection.normalized * movementSpeed * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
             isSprinting = true;
@@ -178,13 +185,13 @@ public class PlayerController : MonoBehaviour
     {
         if (Time.time >= nextShot && canShoot && bulletsInMag > 0)
         {
-            //anim.enabled = true;
-            //if (rotationZ < 135 && rotationZ > 45)
-            //    anim.enabled = false;
-            //else if (rotationZ > -135 && rotationZ < -45)
-            //    anim.Play("front recoil anim");
-            //else
-            //    anim.Play("side recoil anim");
+            anim.enabled = true;
+            if (rotationZ < 135 && rotationZ > 45)
+                anim.enabled = false;
+            else if (rotationZ > -135 && rotationZ < -45)
+                anim.Play("front recoil anim");
+            else
+                anim.Play("side recoil anim");
 
             Instantiate(gunShotParticles, DecideGunShotPosition(), DecideGunshotRotation());
             nextShot = Time.time + timeBetweenShots;
