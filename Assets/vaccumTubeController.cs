@@ -23,7 +23,7 @@ public class vaccumTubeController : MonoBehaviour
         void OnTriggerEnter2D(Collider2D col)
     {
         if(col.CompareTag("Player")){
-            teslaLight.GetComponent<teslaLightController>().vaccumTubesInInventory += 1;
+            teslaLight.GetComponentInChildren<teslaLightController>().vaccumTubesInInventory += 1;
             Destroy(gameObject);
         }
     }

@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem bloodEffect;
 
     Animator anim;
-    Animator parentAnim;
+    public Animator parentAnim;
 
     float animSpeed;
 
@@ -63,7 +63,6 @@ public class PlayerController : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         bulletsInMag = bulletsPerMag;
         anim = GetComponent<Animator>();
-        parentAnim = GetComponentInParent<Animator>();
         animSpeed = parentAnim.speed;
     }
 
@@ -92,16 +91,19 @@ public class PlayerController : MonoBehaviour
     {
         if (isSprinting && canSprint)
         {
+            parentAnim.speed = animSpeed * 3;
             movementSpeed = sprintSpeed;
             aimLine.enabled = false;
         }
         else if (isAiming)
         {
+            parentAnim.speed = animSpeed / 2;
             movementSpeed = aimSpeed;
             aimLine.enabled = true;
         }
         else
         {
+            parentAnim.speed = animSpeed;
             movementSpeed = defaultMovementSpeed;
             aimLine.enabled = false;
         }
@@ -112,7 +114,6 @@ public class PlayerController : MonoBehaviour
         if (isSprinting && canSprint)
         {
             sprintValue -= sprintDecay * Time.deltaTime;
-            parentAnim.speed = animSpeed * 2;
             if (sprintValue <= 0)
             {
                 canSprint = false;
