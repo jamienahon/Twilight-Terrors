@@ -60,16 +60,15 @@ public class PlayerController : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         bulletsInMag = bulletsPerMag;
         anim = GetComponent<Animator>();
-        anim.enabled = false;
     }
 
     void Update()
     {
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("side recoil anim") 
-            && !anim.GetCurrentAnimatorStateInfo(0).IsName("front recoil anim"))
-        {
-            anim.enabled = false;
-        }
+        //if (!anim.GetCurrentAnimatorStateInfo(0).IsName("side recoil anim") 
+        //    && !anim.GetCurrentAnimatorStateInfo(0).IsName("front recoil anim"))
+        //{
+        //    anim.enabled = false;
+        //}
 
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RenderAimLine();
@@ -82,7 +81,6 @@ public class PlayerController : MonoBehaviour
         sprintMeter.value = sprintValue;
         bulletsInMagText.text = bulletsInMag.ToString();
         totalBulletsText.text = totalBullets.ToString();
-
     }
 
     void ChangePlayerMovementState()
@@ -180,13 +178,13 @@ public class PlayerController : MonoBehaviour
     {
         if (Time.time >= nextShot && canShoot && bulletsInMag > 0)
         {
-            anim.enabled = true;
-            if (rotationZ < 135 && rotationZ > 45)
-                anim.enabled = false;
-            else if (rotationZ > -135 && rotationZ < -45)
-                anim.Play("front recoil anim");
-            else
-                anim.Play("side recoil anim");
+            //anim.enabled = true;
+            //if (rotationZ < 135 && rotationZ > 45)
+            //    anim.enabled = false;
+            //else if (rotationZ > -135 && rotationZ < -45)
+            //    anim.Play("front recoil anim");
+            //else
+            //    anim.Play("side recoil anim");
 
             Instantiate(gunShotParticles, DecideGunShotPosition(), DecideGunshotRotation());
             nextShot = Time.time + timeBetweenShots;
