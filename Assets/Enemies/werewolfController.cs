@@ -23,10 +23,14 @@ public class werewolfController : MonoBehaviour
         movementSpeed = defaultMovementSpeed;
         player = GameObject.Find("Player");
     }
-
+    public GameObject bloodParticles;
     // Update is called once per frame
     void Update()
     {
+        if (health < 0){
+            Instantiate(bloodParticles, gameObject.transform.position, quaternion.identity);
+            Destroy(gameObject);
+        }
         if (lockedOn && (Mathf.Abs(transform.position.x - player.transform.position.x) > 1 || Mathf.Abs(transform.position.y - player.transform.position.y) > 2)){
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, defaultMovementSpeed * Time.deltaTime);
         }

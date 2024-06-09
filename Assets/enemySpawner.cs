@@ -9,6 +9,7 @@ public class enemySpawner : MonoBehaviour
     public GameObject ghost;
     public GameObject frank;
     public GameObject vampire;
+    public GameObject werewolf;
     public int enemyCount;
 
     public GameObject player;
@@ -74,7 +75,7 @@ public class enemySpawner : MonoBehaviour
             }
             else if (enemyType == 3){
                 enemyType = 0;
-                Instantiate(vampire, new Vector3(x, y, 0), Quaternion.identity);
+                Instantiate(werewolf, new Vector3(x, y, 0), Quaternion.identity);
                 enemyCount += 1;
             }
         }

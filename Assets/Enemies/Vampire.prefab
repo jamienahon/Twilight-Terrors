@@ -320,6 +320,7 @@ MonoBehaviour:
   health: 100
   slider: {fileID: 163269631721826629}
   attackCooldown: 1
+  bloodParticles: {fileID: 551919455106403075, guid: d62a34c1920d8cb45a4b0cfd63e34f47, type: 3}
 --- !u!50 &163269631482374470
 Rigidbody2D:
   serializedVersion: 4

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Mathematics;
 
 public class PlayerController : MonoBehaviour
 {
@@ -45,6 +46,8 @@ public class PlayerController : MonoBehaviour
 
     public TextMeshProUGUI bulletsInMagText;
     public TextMeshProUGUI totalBulletsText;
+
+    public ParticleSystem bloodEffect;
 
     void Start()
     {
@@ -176,21 +179,25 @@ public class PlayerController : MonoBehaviour
                 if (hit.collider.gameObject.tag == "Vampire")
                 {
                     hit.collider.gameObject.GetComponent<vampireController>().health -= damage;
+                    Instantiate(bloodEffect, hit.point, Quaternion.Euler(0, 0, rotationZ - 180));
                     break;
                 }
                 else if (hit.collider.gameObject.tag == "Ghost")
                 {
                     hit.collider.gameObject.GetComponent<ghostController>().health -= damage;
+                    Instantiate(bloodEffect, hit.point, Quaternion.Euler(0, 0, rotationZ - 180));
                     break;
                 }
                 else if (hit.collider.gameObject.tag == "Frankenstein")
                 {
                     hit.collider.gameObject.GetComponent<frankensteinController>().health -= damage;
+                    Instantiate(bloodEffect, hit.point, Quaternion.Euler(0, 0, rotationZ - 180));
                     break;
                 }
                 else if (hit.collider.gameObject.tag == "Werewolf")
                 {
                     hit.collider.gameObject.GetComponent<werewolfController>().health -= damage;
+                    Instantiate(bloodEffect, hit.point, Quaternion.Euler(0, 0, rotationZ - 180));
                     break;
                 }
             }

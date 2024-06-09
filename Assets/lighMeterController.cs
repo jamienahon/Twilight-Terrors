@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class lighMeterController : MonoBehaviour
@@ -8,6 +9,7 @@ public class lighMeterController : MonoBehaviour
     public Slider slider;
     public float batteryPercentage;
     public float batteryReductionScaler;
+    public GameObject flashLight;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,5 +25,7 @@ public class lighMeterController : MonoBehaviour
             batteryPercentage = 100;
         }
         slider.value = batteryPercentage;
+
+        flashLight.GetComponent<Light2D>().pointLightOuterRadius = 5 + (batteryPercentage * 0.07f) ;
     }
 }

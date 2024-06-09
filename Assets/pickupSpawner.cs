@@ -12,7 +12,6 @@ public class pickupSpawner : MonoBehaviour
     public int maxVaccumTubes;
     public GameObject batteriesObject;
     public int maxBatteries;
-    public float respawnDelay;
 
     private int currentAmmoCount = 0;
     private int currentVaccumTubeCount = 0;

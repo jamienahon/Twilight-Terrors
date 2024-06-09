@@ -266,7 +266,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: df8b4fd5b0e8a0e4fbdee8066846d9bf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 15e863b2795b9c341951ed54fa8e4bc0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -341,6 +341,7 @@ MonoBehaviour:
   health: 100
   slider: {fileID: 1673195893474584874}
   attackCooldown: 1
+  bloodParticles: {fileID: 551919455106403075, guid: d62a34c1920d8cb45a4b0cfd63e34f47, type: 3}
 --- !u!1 &1673195893373197272
 GameObject:
   m_ObjectHideFlags: 0
