@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2063827341589663191}
   - component: {fileID: 8294306836874090368}
   - component: {fileID: 4638721115608137705}
+  - component: {fileID: -5949092705772446364}
   m_Layer: 0
   m_Name: mag
   m_TagString: Untagged
@@ -133,3 +134,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-5949092705772446364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4401486478635594744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc3ed650438e1d44a2eba619b079a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

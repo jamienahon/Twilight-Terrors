@@ -9,6 +9,7 @@ TagManager:
   - Frankenstein
   - Ghost
   - Werewolf
+  - Battery
   layers:
   - Default
   - TransparentFX
