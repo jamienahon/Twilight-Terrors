@@ -17,6 +17,8 @@ public class vampireController : MonoBehaviour
     public float attackCooldown;
     float attackTimer;
 
+    public GameObject bloodParticles;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,10 @@ public class vampireController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (health < 0){
+            Instantiate(bloodParticles, gameObject.transform.position, quaternion.identity);
+            Destroy(gameObject);
+        }
         if (lockedOn && (Mathf.Abs(transform.position.x - player.transform.position.x) > 1 || Mathf.Abs(transform.position.y - player.transform.position.y) > 2)){
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, defaultMovementSpeed * Time.deltaTime);
         }

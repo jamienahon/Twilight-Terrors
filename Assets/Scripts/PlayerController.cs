@@ -178,6 +178,21 @@ public class PlayerController : MonoBehaviour
                     hit.collider.gameObject.GetComponent<vampireController>().health -= damage;
                     break;
                 }
+                else if (hit.collider.gameObject.tag == "Ghost")
+                {
+                    hit.collider.gameObject.GetComponent<ghostController>().health -= damage;
+                    break;
+                }
+                else if (hit.collider.gameObject.tag == "Frankenstein")
+                {
+                    hit.collider.gameObject.GetComponent<frankensteinController>().health -= damage;
+                    break;
+                }
+                else if (hit.collider.gameObject.tag == "Werewolf")
+                {
+                    hit.collider.gameObject.GetComponent<werewolfController>().health -= damage;
+                    break;
+                }
             }
         }
     }

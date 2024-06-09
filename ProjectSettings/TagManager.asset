@@ -8,6 +8,7 @@ TagManager:
   - Vampire
   - Frankenstein
   - Ghost
+  - Werewolf
   layers:
   - Default
   - TransparentFX
