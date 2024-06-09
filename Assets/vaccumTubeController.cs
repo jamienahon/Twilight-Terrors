@@ -5,11 +5,13 @@ using UnityEngine;
 public class vaccumTubeController : MonoBehaviour
 {
     public GameObject player;
-    public GameObject flashLight;
+    public GameObject teslaLight;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
+        teslaLight = GameObject.Find("Tesla Coil");
     }
 
     // Update is called once per frame
@@ -21,7 +23,7 @@ public class vaccumTubeController : MonoBehaviour
         void OnTriggerEnter2D(Collider2D col)
     {
         if(col.CompareTag("Player")){
-            
+            teslaLight.GetComponent<teslaLightController>().vaccumTubesInInventory += 1;
             Destroy(gameObject);
         }
     }
